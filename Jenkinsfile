@@ -1,5 +1,5 @@
 node {
-	def application = "sportshoes"
+	def application = "phase5_sportyshoe"
 	def dockerhubaccountid = "bhargavasdramus"
 	stage('Clone repository') {
 		checkout scm
