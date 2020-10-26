@@ -1,7 +1,11 @@
 package com.api.sportyshoe.controller;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +20,13 @@ import com.api.sportyshoe.model.SportyShoes;
 import com.api.sportyshoe.service.SportyShoesService;
 
 
+
 @RestController
 public class SportyShoesController {
 
 	@Autowired
 	private SportyShoesService service;
-
+	private static final Logger LOG = Logger.getLogger(SportyShoesController.class.getName());
 	private MultiValueMap<String, String> errorMap;
 
 	@PostConstruct
@@ -42,6 +47,7 @@ public class SportyShoesController {
 		service.createSportyShoes(new SportyShoes("Timmy","Nike","Badminton","20-10-2020"));
 		service.createSportyShoes(new SportyShoes("Sunny","Adidas","Running","21-10-2020"));
 		service.createSportyShoes(new SportyShoes("Tom","Adidas","Football","21-10-2020"));
+		LOG.log(Level.INFO, "adding new data");		
 	}
 
 	@GetMapping("/sportyshoe")
