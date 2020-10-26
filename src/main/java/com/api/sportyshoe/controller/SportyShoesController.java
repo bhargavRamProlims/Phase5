@@ -1,11 +1,11 @@
 package com.api.sportyshoe.controller;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,28 +26,58 @@ public class SportyShoesController {
 
 	@Autowired
 	private SportyShoesService service;
-	private static final Logger LOG = Logger.getLogger(SportyShoesController.class.getName());
+	private Logger log = LogManager.getLogger(SportyShoesController.class);
 	private MultiValueMap<String, String> errorMap;
 
 	@PostConstruct
 	public void repo() {
-		service.createSportyShoes(new SportyShoes("Jim","Nike","Running","10-10-2020"));
-		service.createSportyShoes(new SportyShoes("Jimmy","Adidas","Basket-Ball","11-10-2020"));
-		service.createSportyShoes(new SportyShoes("Sam","Nike","Football","11-10-2020"));
-		service.createSportyShoes(new SportyShoes("John","Adidas","Running","12-10-2020"));
-		service.createSportyShoes(new SportyShoes("Jim","Adidas","Tennis","15-10-2020"));
-		service.createSportyShoes(new SportyShoes("Jimmy","Adidas","Badminton","16-10-2020"));
-		service.createSportyShoes(new SportyShoes("Sam","Adidas","Running","18-10-2020"));
-		service.createSportyShoes(new SportyShoes("John","Adidas","Football","18-10-2020"));
-		service.createSportyShoes(new SportyShoes("Sunny","Nike","Running","18-10-2020"));
-		service.createSportyShoes(new SportyShoes("John","Adidas","Basket-Ball","19-10-2020"));
-		service.createSportyShoes(new SportyShoes("Sam","Adidas","Tennis","19-10-2020"));
-		service.createSportyShoes(new SportyShoes("Tim","Nike","Running","19-10-2020"));
-		service.createSportyShoes(new SportyShoes("Timmy","Adidas","Tennis","20-10-2020"));
-		service.createSportyShoes(new SportyShoes("Timmy","Nike","Badminton","20-10-2020"));
-		service.createSportyShoes(new SportyShoes("Sunny","Adidas","Running","21-10-2020"));
-		service.createSportyShoes(new SportyShoes("Tom","Adidas","Football","21-10-2020"));
-		LOG.log(Level.INFO, "adding new data");		
+		SportyShoes shoe = new SportyShoes("Jim","Nike","Running","10-10-2020");
+		service.createSportyShoes(shoe);
+		log.info("Saved shoe -id: "+shoe.getId());
+		shoe = new SportyShoes("Jimmy","Adidas","Basket-Ball","11-10-2020");
+		service.createSportyShoes(shoe);
+		log.info("Saved shoe -id: "+shoe.getId());
+		shoe = new SportyShoes("Sam","Nike","Football","11-10-2020");
+		service.createSportyShoes(shoe);
+		log.info("Saved shoe -id: "+shoe.getId());
+		shoe = new SportyShoes("John","Adidas","Running","12-10-2020");
+		service.createSportyShoes(shoe);
+		log.info("Saved shoe -id: "+shoe.getId());
+		shoe = new SportyShoes("Jim","Adidas","Tennis","15-10-2020");
+		service.createSportyShoes(shoe);
+		log.info("Saved shoe -id: "+shoe.getId());
+		shoe = new SportyShoes("Jimmy","Adidas","Badminton","16-10-2020");
+		service.createSportyShoes(shoe);
+		log.info("Saved shoe -id: "+shoe.getId());
+		shoe = new SportyShoes("Sam","Adidas","Running","18-10-2020");
+		service.createSportyShoes(shoe);
+		log.info("Saved shoe -id: "+shoe.getId());
+		shoe = new SportyShoes("John","Adidas","Football","18-10-2020");
+		service.createSportyShoes(shoe);
+		log.info("Saved shoe -id: "+shoe.getId());
+		shoe = new SportyShoes("Sunny","Nike","Running","18-10-2020");
+		service.createSportyShoes(shoe);
+		log.info("Saved shoe -id: "+shoe.getId());
+		shoe = new SportyShoes("John","Adidas","Basket-Ball","19-10-2020");
+		service.createSportyShoes(shoe);
+		log.info("Saved shoe -id: "+shoe.getId());
+		shoe = new SportyShoes("Sam","Adidas","Tennis","19-10-2020");
+		service.createSportyShoes(shoe);
+		log.info("Saved shoe -id: "+shoe.getId());
+		shoe = new SportyShoes("Tim","Nike","Running","19-10-2020");
+		service.createSportyShoes(shoe);
+		log.info("Saved shoe -id: "+shoe.getId());
+		shoe = new SportyShoes("Timmy","Adidas","Tennis","20-10-2020");
+		service.createSportyShoes(shoe);
+		log.info("Saved shoe -id: "+shoe.getId());
+		shoe = new SportyShoes("Timmy","Nike","Badminton","20-10-2020");
+		service.createSportyShoes(shoe);
+		shoe = new SportyShoes("Sunny","Adidas","Running","21-10-2020");
+		service.createSportyShoes(shoe);
+		log.info("Saved shoe -id: "+shoe.getId());
+		shoe = new SportyShoes("Tom","Adidas","Football","21-10-2020");
+		service.createSportyShoes(shoe);
+		log.info("Saved shoe -id: "+shoe.getId());
 	}
 
 	@GetMapping("/sportyshoe")
