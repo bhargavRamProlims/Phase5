@@ -1,26 +1,30 @@
-node {
-	def application = "phase5_sportyshoe"
-	def dockerhubaccountid = "bhargavasdramus"
-	stages{
-	stage('Clone repository') {
-		checkout scm
-	}
-
-	stage('Build image') {
-		app = docker.build("${dockerhubaccountid}/${application}:${BUILD_NUMBER}")
-	}
-
-	stage('Push image') {
-		app.push()
-		app.push("latest")
-	}
-
-	stage('Deploy') {
-		sh ("docker run -d -p 3000:3000 ${dockerhubaccountid}/${application}:${BUILD_NUMBER}")
-	}
-	
-	stage('Remove old images') {
-		sh("docker rmi ${dockerhubaccountid}/${application}:latest -f")
-   }
-	}
+pipeline {
+  agent none
+  stages {
+    stage('Maven Install') {
+      agent {
+        docker {
+          image 'maven:3.5.0'
+        }
+      }
+      steps {
+        sh 'mvn clean install'
+      }
+    }
+    stage('Docker Build') {
+      agent any
+      steps {
+        sh 'docker build -t bhargavasdramus/phase5_sportyshoe:latest .'
+      }
+    }
+    stage('Docker Push') {
+      agent any
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'Bunny@0907', usernameVariable: 'bhargavasdramus')]) {
+          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+          sh 'docker push bhargavasdramus/phase5_sportyshoe:latest'
+        }
+      }
+    }
+  }
 }
