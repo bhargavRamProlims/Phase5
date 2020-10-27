@@ -1,0 +1,22 @@
+Phase5 - CI/CD Deployment for Springboot Application
+Github - https://github.com/bhargavRamProlims/Phase5
+DockerHub - https://hub.docker.com/repository/docker/bhargavasdramus/phase5_sportyshoe/general
+DockerImage - bhargavasdramus/phase5_sportyshoe
+
+The application has multiple commits available on the github.
+The application has been hosted on Docker Hub.
+Steps to use Application.
+- git clone https://github.com/bhargavRamProlims/Phase5.git
+- cd Phase5
+- docker-compose up -d --build (or docker-compose up --build to check the logs of ELK stack)
+- localhost:5601 is used to access kibana.
+- localhost:3000/sportyshoe is used to access the spring application's data.
+
+For Jenkins depoloyment,
+- create a pipeline item.
+- in pipeline select pipeline script from SCM
+- select git in SCM
+- Paste the git repo in the text-box.
+- set branch as */main
+- save and apply
+build Now to deploy the application.
