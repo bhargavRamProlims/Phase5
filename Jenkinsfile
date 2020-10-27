@@ -1,6 +1,7 @@
 node {
 	def application = "phase5_sportyshoe"
 	def dockerhubaccountid = "bhargavasdramus"
+	stages{
 	stage('Clone repository') {
 		checkout scm
 	}
@@ -21,4 +22,5 @@ node {
 	stage('Remove old images') {
 		sh("docker rmi ${dockerhubaccountid}/${application}:latest -f")
    }
+	}
 }
