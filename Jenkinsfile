@@ -1,36 +1,24 @@
-pipeline {
-  environment {
-    registry = "bhargavasdramus/phase5_sportyshoe"
-    registryCredential = 'dockerhub'
-    dockerImage = ''
-  }
-  agent any
-  stages {
-    stage('Cloning Git') {
-      steps {
-        git 'https://github.com/bhargavRamProlims/Phase5.git'
-      }
-    }
-    stage('Building image') {
-      steps{
-        script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
-        }
-      }
-    }
-    stage('Deploy Image') {
-      steps{
-        script {
-          docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
-          }
-        }
-      }
-    }
-    stage('Remove Unused docker image') {
-      steps{
-        sh "docker rmi $registry:$BUILD_NUMBER"
-      }
+node {
+	def application = "phase5_sportyshoe"
+	def dockerhubaccountid = "bhargavasdramus"
+	stage('Clone repository') {
+		checkout scm
 	}
-  }
+
+	stage('Build image') {
+		app = docker.build("${dockerhubaccountid}/${application}:${BUILD_NUMBER}")
+	}
+
+	stage('Push image') {
+		app.push()
+		app.push("latest")
+	}
+
+	stage('Deploy') {
+		sh ("docker run -d -p 3000:3000 ${dockerhubaccountid}/${application}:${BUILD_NUMBER}")
+	}
+	
+	stage('Remove old images') {
+		sh("docker rmi ${dockerhubaccountid}/${application}:latest -f")
+   }
 }
